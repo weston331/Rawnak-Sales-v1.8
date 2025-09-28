@@ -7,14 +7,17 @@ const withNextIntlPlugin = withNextIntl('./src/i18n.ts');
 
 const withPWA = withPWAInit({
   dest: "public",
-  disable: process.env.NODE_ENV === "development",
+  disable: false, // تم تفعيل PWA في وضع التطوير
   sw: "sw.js",
+  register: true,
+  scope: "/",
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
   fallbacks: {
     document: "/offline",
   },
+  publicExcludes: ["!middleware.js", "!api/**/*"],
   workboxOptions: {
     disableDevLogs: true,
     skipWaiting: true,

@@ -13,14 +13,16 @@ const allMessages: Record<string, any> = {
   ar: arMessages
 };
 
-export default getRequestConfig(async ({locale}) => {
+export default getRequestConfig(async ({requestLocale}) => {
+  const locale = await requestLocale;
+  
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
+  if (!locale || !locales.includes(locale as any)) {
     notFound();
   }
 
   return {
-    locale, // This was missing
-    messages: allMessages[locale]
+    locale,
+    messages: allMessages[locale as keyof typeof allMessages]
   };
 });

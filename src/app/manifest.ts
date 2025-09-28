@@ -14,23 +14,37 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: '/',
     lang: 'ar',
     categories: ['business', 'productivity'],
+    id: 'rawnak-sales-pwa',
+    prefer_related_applications: false,
     icons: [
       {
-        src: '/icons/icon-192x192.svg',
+        src: '/icon-192.png',
         sizes: '192x192',
-        type: 'image/svg+xml',
+        type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/icons/icon-512x512.svg',
+        src: '/icon-512.png',
         sizes: '512x512',
-        type: 'image/svg+xml',
+        type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/icons/apple-touch-icon.svg',
+        src: '/icon-192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'maskable',
+      },
+      {
+        src: '/apple-icon.png',
         sizes: '180x180',
-        type: 'image/svg+xml',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/icon-192.png',
+        sizes: '144x144',
+        type: 'image/png',
         purpose: 'any',
       },
     ],
@@ -40,14 +54,14 @@ export default function manifest(): MetadataRoute.Manifest {
         short_name: 'بيع',
         description: 'بدء عملية بيع جديدة',
         url: '/ar/sales',
-        icons: [{ src: '/icons/icon-192x192.svg', sizes: '192x192' }]
+        icons: [{ src: '/icon-192.png', sizes: '192x192' }]
       },
       {
         name: 'المخزون',
         short_name: 'مخزون',
         description: 'إدارة المخزون والمنتجات',
         url: '/ar/inventory',
-        icons: [{ src: '/icons/icon-192x192.svg', sizes: '192x192' }]
+        icons: [{ src: '/icon-192.png', sizes: '192x192' }]
       }
     ],
   }

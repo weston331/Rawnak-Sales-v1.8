@@ -42,14 +42,14 @@ const amiri = Amiri({
 
 
 // Using generateMetadata for dynamic metadata
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   const SaIconSvg = `<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%2329ABE2%22/><text x=%2250%22 y=%2255%22 font-size=%2250%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-family=%22Arial, sans-serif%22 font-weight=%22bold%22>Sa</text></svg>`;
   const SaIconDataUri = `data:image/svg+xml,${SaIconSvg}`;
 
   return {
     title: 'Rawnak Sales',
     description: 'Smart sales management system for store owners in Iraq.',
-    manifest: '/manifest.webmanifest',
     applicationName: 'Rawnak Sales',
     keywords: ['sales', 'pos', 'inventory', 'business', 'iraq', 'retail'],
     authors: [{ name: 'Rawnak Sales Team' }],
@@ -98,19 +98,29 @@ export const viewport: Viewport = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: Readonly<RootLayoutProps>) {
   
+  const { locale } = await params;
   const messages = await getMessages();
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
     <html lang={locale} dir={dir}>
+      <head>
+        <link rel="manifest" href={`/${locale}/manifest.json`} />
+        <link rel="icon" href="/icon-192.png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <meta name="theme-color" content="#29ABE2" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Rawnak Sales" />
+      </head>
       <body className={`${inter.variable} ${noto_sans_arabic.variable} ${cairo.variable} ${tajawal.variable} ${amiri.variable} font-body antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <UserProvider>
